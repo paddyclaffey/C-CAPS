@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="css/style.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		
+		<div id="location">
+			<input type="image" src="images/location.jpg" name="location" id="location" onclick="getLocation()" height="22" width="22"/>
+			<textarea placeholder=location cols="20" rows="1"></textarea>
+			<img src="images/settings.jpg" height="22" width="22" align="right"/>
+		</div>
+		<button onclick="getLocation()">Try It</button>
+		
+		<script>
+		var x = document.getElementById("location");
+		function getLocation() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(showPosition, showError);
+			} else {
+				x.innerHTML = "Geolocation is not supported by this browser.";
+			}
+		}
+
+		function showPosition(position) {
+			var latlon = position.coords.latitude + "," + position.coords.longitude;
+
+			var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="
+			+latlon+"&zoom=14&size=400x300&sensor=false";
+			document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
+		}
+
+		function showError(error) {
+			switch(error.code) {
+				case error.PERMISSION_DENIED:
+					x.innerHTML = "User denied the request for Geolocation."
+					break;
+				case error.POSITION_UNAVAILABLE:
+					x.innerHTML = "Location information is unavailable."
+					break;
+				case error.TIMEOUT:
+					x.innerHTML = "The request to get user location timed out."
+					break;
+				case error.UNKNOWN_ERROR:
+					x.innerHTML = "An unknown error occurred."
+					break;
+			}
+		}
+
+		</script>
+		
+		<title>C-CAPS Air Pollution Monitor</title>
+		<style>
+			.wrapper {width:58.536585%; /*960/1640 = .58536585*/ margin:0 auto;}
+			.resize {width:25%; height:auto;}
+		</style> 
+		<div id="headerlogo" align="center">
+			<h1>
+				Air Pollution Monitor
+			</h1>
+			<img class="resize" src="images/ccapsLogo.jpg"/>
+		</div>
+	</head>
+	<body>
+		<div id="menu">
+			<ul>
+				<button>Check Conditions</button><br>
+				<button>Notifications</button><br>
+			</ul>
+			<script>
+				function notifications() {
+					document.getElementById("demo").style.color = "red";
+				}
+			</script>
+		</div>
+	</body>
+</html>
