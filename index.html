@@ -6,28 +6,10 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		
 		<div id="location">
-			<input type="image" src="images/location.jpg" name="location" id="location" onclick="getLocation()" height="22" width="22"/>
-			<textarea placeholder=location cols="20" rows="1"></textarea>
-			<img src="images/settings.jpg" height="22" width="22" align="right"/>
+			<input type="image" src="images/location.jpg" name="location" id="locationImage" onclick="getLocation()" height="22" width="22"/>
+			<textarea placeholder=location cols="20" rows="1"></textarea> 
+			<input type="image" src="images/settings.jpg" name="settings" id="settingsImage" onclick="settings()" height="22" width="22" align='right'/>
 		</div>
-		
-		<script>
-		var x = document.getElementById("location");
-		
-		function getLocation()
-		{
-		navigator.geolocation.getCurrentPosition(locationSuccess, locationFail);
-		function locationSuccess(position) {
-			latitude = position.coords.latitude;
-			longitude = position.coords.longitude;
-			alert(latitude, longitude);
-		}
-
-		function locationFail() {
-			alert("Oops, could not find you.");
-		}
-}
-		</script>
 		
 		<title>C-CAPS Air Pollution Monitor</title>
 		<style>
@@ -44,16 +26,66 @@
 		</div>
 	</head>
 	<body>
-		<div id="menu">
-			<ul>
-				<button>Check Conditions</button><br>
-				<button>Notifications</button><br>
-			</ul>
-			<script>
-				function notifications() {
-					document.getElementById("demo").style.color = "red";
-				}
-			</script>
+		<div id="menu" align="center"; >
+			<button onclick="checkConditions()">Check Conditions</button><br>
+			<button onclick="notifications()">Notifications</button><br>
 		</div>
+		<script>
+			var x = document.getElementById("location");
+			var y = document.getElementById("menu");
+			function getLocation()
+			{
+				navigator.geolocation.getCurrentPosition(locationSuccess, locationFail);
+				function locationSuccess(position) 
+				{
+					latitude = position.coords.latitude;
+					longitude = position.coords.longitude;
+					alert(latitude);
+					alert(longitude);
+				}
+
+				function locationFail() {
+					x.innerHTML = ("<input type='image' src='images/location.jpg' name='location' id='locationImage' onclick='getLocation()' height='22' width='22'/>"+
+					"<textarea placeholder=53.280051-9.062970345345 cols='20' rows='1'></textarea>"+
+					"<input type='image' src='images/settings.jpg' name='settings' id='settingsImage' onclick='settings()' height='22' width='22' align='right')/>");
+					alert("Oops, could not find you.");
+				}
+			}
+							
+			function settings()
+			{
+				x.innerHTML = ("<input type='image' src='images/location.jpg' name='location' id='locationImage' onclick='getLocation()' height='22' width='22'/>"+
+					"<textarea placeholder=53.280051-9.062970345345 cols='20' rows='1'></textarea>"+
+					"<input type='image' src='images/home.jpg' name='home' id='homeImage' onclick='home()' height='22' width='22' align='right')/>");
+				y.innerHTML = ("<h2>Settings</h2>");
+			}
+						
+			function home()
+			{
+				x.innerHTML = ("<input type='image' src='images/location.jpg' name='location' id='locationImage' onclick='getLocation()' height='22' width='22'/>"+
+					"<textarea placeholder=53.280051-9.062970345345 cols='20' rows='1'></textarea>"+
+					"<input type='image' src='images/settings.jpg' name='settings' id='settingsImage' onclick='settings()' height='22' width='22' align='right')/>"+
+					"<input type='image' src='images/home.jpg' name='home' id='homeImage' onclick='home()' height='22' width='22' align='right'");
+				y.innerHTML = ("<ul><button onclick='checkConditions()'>Check Conditions</button><br><button onclick='notifications()'>Notifications</button><br></ul>");
+			}
+			
+			function checkConditions()
+			{
+				y.innerHTML = ("<h2>Check Conditions</h2>");
+				x.innerHTML = ("<input type='image' src='images/location.jpg' name='location' id='locationImage' onclick='getLocation()' height='22' width='22'/>"+
+					"<textarea placeholder=53.280051-9.062970345345 cols='20' rows='1'></textarea>"+
+					"<input type='image' src='images/home.jpg' name='home' id='homeImage' onclick='home()' height='22' width='22' align='right')/>" +
+					"<input type='image' src='images/settings.jpg' name='settings' id='settingsImage' onclick='settings()' height='22' width='22' align='right')/>");
+			}
+						
+			function notifications()
+			{
+				y.innerHTML = ("<h2>Notifications</h2>");
+				x.innerHTML = ("<input type='image' src='images/location.jpg' name='location' id='locationImage' onclick='getLocation()' height='22' width='22'/>"+
+					"<textarea placeholder=53.280051-9.062970345345 cols='20' rows='1'></textarea>"+
+					"<input type='image' src='images/home.jpg' name='home' id='homeImage' onclick='home()' height='22' width='22' align='right')/>" +
+					"<input type='image' src='images/settings.jpg' name='settings' id='settingsImage' onclick='settings()' height='22' width='22' align='right')/>");
+			}	
+		</script>
 	</body>
 </html>
